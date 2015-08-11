@@ -47,7 +47,7 @@ FOE
 fi
 
 if [ "$type" == "client" ]; then
-    if [ -n "$type" ]; then
+    if [ -n "$name" ]; then
 		cd /etc/openvpn/easy-rsa/
 		source vars
 		./pkitool ${name}
