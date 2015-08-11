@@ -1,0 +1,55 @@
+#!/bin/bash
+
+type="$1"
+name="$2"
+
+if [ "$type" == "server" ]; then
+
+mkdir /etc/openvpn/easy-rsa
+cp -r /usr/share/easy-rsa/* /etc/openvpn/easy-rsa
+cd /etc/openvpn/easy-rsa/
+
+source vars
+./clean-all
+./build-dh
+./pkitool --initca
+./pkitool --server server
+
+cd keys
+
+openvpn --genkey --secret ta.key
+
+cp server.crt server.key ca.crt dh2048.pem ta.key /etc/openvpn/
+
+cat << FOE >> /etc/openvpn/server.conf
+port 1194
+proto udp
+dev tun
+ca /etc/openvpn/ca.crt
+cert /etc/openvpn/server.crt
+key /etc/openvpn/server.key
+dh /etc/openvpn/dh2048.pem
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
+push "dhcp-option DNS 8.8.4.4"
+keepalive 10 120
+comp-lzo
+user nobody
+group nogroup
+persist-key
+persist-tun
+status /etc/openvpn/openvpn-server-status.log
+verb 3
+FOE
+
+fi
+
+if [ "$type" == "client" ]; then
+    if [ -n "$type" ]; then
+		cd /etc/openvpn/easy-rsa/
+		source vars
+		./pkitool ${name}
+	fi
+fi

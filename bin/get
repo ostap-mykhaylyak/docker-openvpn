@@ -1,0 +1,30 @@
+#!/bin/bash
+
+name="$1"
+
+echo "
+client
+dev tun
+proto udp
+remote 5.196.40.17 1194
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+ns-cert-type server
+comp-lzo
+verb 3
+<key>
+$(cat /etc/openvpn/easy-rsa/keys/${name}.key)
+</key>
+<cert>
+$(openssl x509 -in /etc/openvpn/easy-rsa/keys/${name}.crt)
+</cert>
+<ca>
+$(cat /etc/openvpn/ca.crt)
+</ca>
+<tls-auth>
+$(cat /etc/openvpn/ta.key)
+</tls-auth>
+key-direction 1
+"
