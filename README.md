@@ -4,9 +4,13 @@
 
 ## Quick Start
 
-* Download and build from GitHub
+* Download from GitHub
 
-            docker build -t ostap/openvpn git://github.com/ostap-mykhaylyak/docker-openvpn.git
+            git clone git://github.com/ostap-mykhaylyak/docker-openvpn.git
+
+* Build Docker image
+
+            docker build -t="ostap/openvpn" .
 
 * Create $DATA container
 
