@@ -2,9 +2,6 @@ FROM debian:jessie
 
 MAINTAINER Ostap Mykhaylyak
 
-RUN dpkg-divert --local --rename --add /sbin/initctl
-RUN ln -sf /bin/true /sbin/initctl
-
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
