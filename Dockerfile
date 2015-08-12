@@ -2,6 +2,11 @@ FROM debian:jessie
 
 MAINTAINER Ostap Mykhaylyak
 
+RUN dpkg-divert --local --rename --add /sbin/initctl
+RUN ln -sf /bin/true /sbin/initctl
+
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN apt-get update
 RUN apt-get install -y openvpn iptables easy-rsa
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
