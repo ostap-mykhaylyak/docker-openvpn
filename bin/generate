@@ -25,6 +25,7 @@ cat << FOE >> /etc/openvpn/server.conf
 port 1194
 proto udp
 dev tun
+client-to-client
 ca /etc/openvpn/ca.crt
 cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
