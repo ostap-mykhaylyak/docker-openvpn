@@ -2,8 +2,7 @@
 
 name="$1"
 
-echo "
-client
+echo "client
 dev tun
 proto udp
 remote 5.196.40.17 1194
@@ -23,8 +22,8 @@ $(openssl x509 -in /etc/openvpn/easy-rsa/keys/${name}.crt)
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
+key-direction 1
 <tls-auth>
 $(cat /etc/openvpn/ta.key)
 </tls-auth>
-key-direction 1
 "
