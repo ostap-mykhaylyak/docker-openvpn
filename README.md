@@ -4,6 +4,10 @@
 
 ## Quick Start
 
+* Get root
+
+            sudo su
+
 * Download and build from GitHub
 
             docker build -t ostap/openvpn git://github.com/ostap-mykhaylyak/docker-openvpn.git
@@ -23,6 +27,10 @@
 * Retrieve the client configuration with embedded certificates
 
             docker run --volumes-from $DATA --rm ostap/openvpn get $NAME > $NAME.ovpn
+			
+* Fix permissions if get client configuration from WinSCP ( Ubuntu "root" is locked by default )
+			
+			chmod ugo+rwx $NAME.ovpn
 
 * Start OpenVPN Server
 
